@@ -1,6 +1,7 @@
 ﻿using CourseWebAPI.DTOs;
 using CourseWebAPI.DTOs.ProductDTOs;
 using CourseWebAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +9,7 @@ namespace CourseWebAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "Admin")] 
     public class ProductController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -17,7 +19,7 @@ namespace CourseWebAPI.Controllers
             _context = context;
         }
 
-        
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDTO>>> GetAll()
         {
@@ -41,7 +43,6 @@ namespace CourseWebAPI.Controllers
             return Ok(result);
         }
 
-       
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductDTO>> GetById(int id)
         {
@@ -67,7 +68,6 @@ namespace CourseWebAPI.Controllers
             return Ok(dto);
         }
 
-        
         [HttpPost]
         public async Task<ActionResult<ProductDTO>> Create(CreateProductDTO dto)
         {
@@ -87,7 +87,6 @@ namespace CourseWebAPI.Controllers
             return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
         }
 
-       
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, UpdateProductDTO dto)
         {
@@ -107,7 +106,6 @@ namespace CourseWebAPI.Controllers
             return Ok();
         }
 
-        
         [HttpDelete("{id}/soft")]
         public async Task<IActionResult> SoftDelete(int id)
         {
@@ -120,7 +118,6 @@ namespace CourseWebAPI.Controllers
             return Ok();
         }
 
-        
         [HttpPost("{id}/restore")]
         public async Task<IActionResult> Restore(int id)
         {
@@ -133,7 +130,6 @@ namespace CourseWebAPI.Controllers
             return Ok();
         }
 
-       
         [HttpDelete("{id}/hard")]
         public async Task<IActionResult> HardDelete(int id)
         {
@@ -146,7 +142,6 @@ namespace CourseWebAPI.Controllers
             return NoContent();
         }
 
-        
         [HttpGet("by-category/{categoryId}")]
         public async Task<ActionResult<IEnumerable<ProductDTO>>> GetByCategory(int categoryId)
         {
