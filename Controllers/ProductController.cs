@@ -19,7 +19,7 @@ namespace CourseWebAPI.Controllers
             _context = context;
         }
 
-        [Authorize(Roles = "Admin")]
+     
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDTO>>> GetAll()
         {
@@ -44,6 +44,7 @@ namespace CourseWebAPI.Controllers
         }
 
         [HttpGet("{id}")]
+        
         public async Task<ActionResult<ProductDTO>> GetById(int id)
         {
             var product = await _context.Products
@@ -69,6 +70,7 @@ namespace CourseWebAPI.Controllers
         }
 
         [HttpPost]
+      
         public async Task<ActionResult<ProductDTO>> Create(CreateProductDTO dto)
         {
             var product = new Product
@@ -88,6 +90,7 @@ namespace CourseWebAPI.Controllers
         }
 
         [HttpPut("{id}")]
+      
         public async Task<IActionResult> Update(int id, UpdateProductDTO dto)
         {
             if (id != dto.Id)

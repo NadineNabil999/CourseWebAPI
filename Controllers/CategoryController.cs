@@ -2,6 +2,7 @@
 using CourseWebAPI.DTOs.CategoryDTOs;
 using CourseWebAPI.DTOs.ProductDTOs;
 using CourseWebAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +10,7 @@ namespace CourseWebAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "Admin")]
     public class CategoryController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
